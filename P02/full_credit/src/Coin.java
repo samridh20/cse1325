@@ -1,21 +1,23 @@
-public class Coin {
+public class Coin{
+    
     private Denomination denomination;
     private int year;
 
-    public Coin(Denomination denomination, int year) {
+    public Coin(Denomination denomination, int year){
+
         this.denomination = denomination;
         this.year = year;
     }
 
-    public double getValue() {
+    public double getValue(){
         return denomination.getValue();
     }
 
-    public int getYear() {
+    public int getYear(){
         return year;
     }
+    public double getWeight(){
 
-    public double getWeight() {
         return switch (denomination) {
             case PENNY -> (year < 1983) ? 3.110 : 2.500;
             case NICKEL -> 5.000;
@@ -25,7 +27,7 @@ public class Coin {
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return year + " " + denomination;
     }
 }

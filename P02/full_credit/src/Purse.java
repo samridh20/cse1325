@@ -21,6 +21,6 @@ public class Purse {
             System.out.println(coin);
         }
 
-        System.out.printf("You have $ %.2f in coins between %d and %d weighing %.3f grams\n", totalValue, earliestYear, latestYear, totalWeight);
+        System.out.printf("You have $ %.2f in coins between %d and %d weighing %.2f grams\n", totalValue, earliestYear, latestYear, totalWeight);
     }
 }
