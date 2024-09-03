@@ -1,16 +1,12 @@
 public enum Denomination {
-    PENNY(0.01),
-    NICKEL(0.05),
-    DIME(0.10),
-    QUARTER(0.25);
-
-    private final double value;
-
-    Denomination(double value) {
-        this.value = value;
-    }
+    PENNY, NICKEL, DIME, QUARTER;
 
     public double getValue() {
-        return value;
+        return switch (this) {
+            case PENNY -> 0.01;
+            case NICKEL -> 0.05;
+            case DIME -> 0.10;
+            case QUARTER -> 0.25;
+        };
     }
 }
