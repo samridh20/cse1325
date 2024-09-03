@@ -1,15 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class Coin {
-    private static final Map<Denomination, Double> values = new HashMap<>();
-    static {
-        values.put(Denomination.PENNY, 0.01);
-        values.put(Denomination.NICKEL, 0.05);
-        values.put(Denomination.DIME, 0.10);
-        values.put(Denomination.QUARTER, 0.25);
-    }
-
     private Denomination denomination;
     private int year;
 
@@ -19,7 +8,12 @@ public class Coin {
     }
 
     public double getValue() {
-        return values.get(denomination);
+        return switch (denomination) {
+            case PENNY -> 0.01;
+            case NICKEL -> 0.05;
+            case DIME -> 0.10;
+            case QUARTER -> 0.25;
+        };
     }
 
     public int getYear() {
@@ -27,18 +21,12 @@ public class Coin {
     }
 
     public double getWeight() {
-        switch (denomination) {
-            case PENNY:
-                return (year < 1983) ? 3.110 : 2.500;
-            case NICKEL:
-                return 5.000;
-            case DIME:
-                return (year < 1965) ? 2.500 : 2.268;
-            case QUARTER:
-                return (year < 1965) ? 6.250 : 5.670;
-            default:
-                return 0.0;
-        }
+        return switch (denomination) {
+            case PENNY -> (year < 1983) ? 3.110 : 2.500;
+            case NICKEL -> 5.000;
+            case DIME -> (year < 1965) ? 2.500 : 2.268;
+            case QUARTER -> (year < 1965) ? 6.250 : 5.670;
+        };
     }
 
     @Override
