@@ -24,5 +24,8 @@ public class Coin {
         };
     }
 
-    
+    @Override
+    public String toString() {
+        return year + " " + denomination;
+    }
 }
