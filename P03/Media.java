@@ -18,9 +18,9 @@ public class Media{
         this.title = title;
         this.url = url;
     }
-
+    @Override
     public String toString(){
-        
+
         return String.format("%s (%s)", title, url);
     }
 }
