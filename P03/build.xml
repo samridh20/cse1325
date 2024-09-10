@@ -1,23 +1,15 @@
-<project name="JavaProject" default="run" basedir=".">
-    <property name="build.dir" value="build"/>
-    <property name="classes.dir" value="${build.dir}/classes"/>
-    
-    <target name="clean">
-        <delete dir="${build.dir}"/>
-    </target>
-
-    <target name="compile">
-        <mkdir dir="${classes.dir}"/>
-        <javac srcdir="." destdir="${classes.dir}" includeantruntime="false">
-            <include name="*.java"/>
+<?xml version="1.0"?>
+<project name="CSE1325" default="build">
+    <target name="build" description="Compile source tree java files">
+        <javac includeantruntime="false" release="21" debug="true" failonerror="true">
+            <src path="."/>
         </javac>
     </target>
-
-    <target name="run" depends="compile">
-        <java classname="TestAccount" classpath="${classes.dir}">
-            <classpath>
-                <pathelement path="${classes.dir}"/>
-            </classpath>
-        </java>
+    <target name="clean" description="Clean output files">
+        <delete>
+            <fileset dir=".">
+                <include name="/*.class"/>
+            </fileset>
+        </delete>
     </target>
 </project>
