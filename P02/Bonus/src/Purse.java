@@ -12,6 +12,7 @@ public class Purse {
         double totalWeight = 0;
         int earliestYear = Integer.MAX_VALUE;
         int latestYear = Integer.MIN_VALUE;
+    
 
         for (Coin coin : coins) {
             totalValue += coin.getValue();
