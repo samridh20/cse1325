@@ -6,7 +6,7 @@ public class Media {
     private String url;
     private int points;
 
-    
+
     public Media(String title, String url, int points) {
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Media title is empty");
@@ -21,7 +21,7 @@ public class Media {
         this.points = points;
     }
 
-    // Getter for points
+   
     public int getPoints() {
         return points;
     }
