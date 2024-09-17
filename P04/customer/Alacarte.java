@@ -1,5 +1,7 @@
 package customer;
+
 import product.Media;
+
 public class Alacarte extends Account {
 
     private int pointsRemaining;

@@ -1,11 +1,8 @@
-package product;
-
 public class Media {
 
     private String title;
     private String url;
     private int points;
-
 
     public Media(String title, String url, int points) {
         if (title == null || title.isEmpty()) {
@@ -21,7 +18,6 @@ public class Media {
         this.points = points;
     }
 
-   
     public int getPoints() {
         return points;
     }

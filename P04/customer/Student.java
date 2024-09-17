@@ -1,7 +1,9 @@
+package customer;
+
 import java.util.regex.Pattern;
 import product.Media;
 
-public class Student{
+public class Student {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(".+@(?:mavs\\.)?uta\\.edu$");
 
@@ -10,16 +12,19 @@ public class Student{
     private String email;
     private Account account;
 
-    public Student(String name, int id, String email){
-
+    public Student(String name, int id, String email) {
         if (!EMAIL_PATTERN.matcher(email).matches()) {
             throw new IllegalArgumentException("Non-UTA email address: " + email);
         }
-
         this.name = name;
         this.id = id;
         this.email = email;
-        this.account = new Account();
+        this.account = new Account() {
+            @Override
+            public String play(Media media) {
+                return "Playing " + media.toString();
+            }
+        };
     }
 
     public String requestMedia(Media media) {
@@ -31,6 +36,6 @@ public class Student{
 
     @Override
     public String toString() {
-        return String.format("%s (%d, %s, Account #%d)",name,id,email,account.getAccountNumber());
+        return String.format("%s (%d, %s, Account #%d)", name, id, email, account.getAccountNumber());
     }
 }
