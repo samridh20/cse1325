@@ -1,33 +1,19 @@
-package product;
-
 public class Media {
-
-    private String title;
-    private String url;
-    private int points;
-
-    
-    public Media(String title, String url, int points) {
-        if (title == null || title.isEmpty()) {
-            throw new IllegalArgumentException("Media title is empty");
-        }
-
-        if (url == null || url.isEmpty()) {
-            throw new IllegalArgumentException("URL is empty");
-        }
-
+    public Media(String title, String url) {
         this.title = title;
         this.url = url;
-        this.points = points;
+        // EXTREME BONUS SOLUTION
+        try {
+            new java.net.URI(url).toURL();
+        } catch(Exception e) {
+            throw new RuntimeException(url + " is invalid", e);
+        }
+        // END EXTREME BONUS SOLUTION
     }
-
-    // Getter for points
-    public int getPoints() {
-        return points;
-    }
-
     @Override
     public String toString() {
-        return String.format("%s (%s, %d points)", title, url, points);
+        return title + " (" + url + ")";
     }
+    private String title;
+    private String url;
 }

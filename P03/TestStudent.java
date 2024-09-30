@@ -1,54 +1,59 @@
+// BONUS SOLUTION
+
 public class TestStudent {
     public static void main(String[] args) {
-        int failureCount = 0; 
-
+        int vector = 1;
+        int result = 0;
         
-        try {
-            Student student1 = new Student("John Doe", 123456789, "johndoe@mavs.uta.edu");
-            String expectedToString = "John Doe (123456789, johndoe@mavs.uta.edu, Account #1)";
-            String actualToString = student1.toString();
-            
-            if (!expectedToString.equals(actualToString)) {
-                System.out.println("FAIL: Expected \"" + expectedToString + "\", but got \"" + actualToString + "\"");
-                failureCount |= 0b001; 
-            }
-        } catch (Exception e) {
-            System.out.println("FAIL: Unexpected exception in toString test.");
-            failureCount |= 0b001; 
+        // Verify that the Student's ``toString()`` method returns the correct representation 
+        //   for a ``Student`` object.
+        Student s1 = new Student("Prof Rice", 1234567890, "george.rice@uta.edu");
+        String actual = s1.toString();
+        String expected = "Prof Rice (1234567890, george.rice@uta.edu, Account #1";
+        if(!actual.equals(expected)) {
+            System.err.println("FAIL: Expected student " + expected + '\n'
+                                 + "  Actual   student " + actual);
+                result |= vector;
         }
-
+        vector <<= 1;
         
+        // Verify that if a non-UTA email is used to instance a new Student, 
+        //   an ``IllegalArgumentException`` is thrown and that the message is 
+        //   "Non-UTA email address: " and the email address.
+        String badEmail = "george.rice@example.com";
         try {
-            Student student2 = new Student("Jane Doe", 987654321, "janedoe@gmail.com");
-            System.out.println("FAIL: Expected IllegalArgumentException for non-UTA email, but no exception was thrown.");
-            failureCount |= 0b010; 
+            Student s2 = new Student("Prof Rice", 1234567890, badEmail);
+            System.err.println("FAIL: Expected IllegalArgumentException for " + badEmail);
+            System.err.println("      NO exception thrown");
+            result |= vector;
         } catch (IllegalArgumentException e) {
-            String expectedMessage = "Non-UTA email address: janedoe@gmail.com";
-            if (!e.getMessage().equals(expectedMessage)) {
-                System.out.println("FAIL: Expected \"" + expectedMessage + "\", but got \"" + e.getMessage() + "\"");
-                failureCount |= 0b010; 
-        } catch (Exception e) {
-            System.out.println("FAIL: Expected IllegalArgumentException, but got a different exception.");
-            failureCount |= 0b010; 
-        }
-
-        
-        try {
-            Student student3 = new Student("Jake Smith", 112233445, "jake@mavs.uta.edu");
-            Media media = new Media("The Little Shop of Horrors", "https://publicdomainmovie.net/movie/the-little-shop-of-horrors-0");
-            String expectedPlayResult = "Playing The Little Shop of Horrors (https://publicdomainmovie.net/movie/the-little-shop-of-horrors-0)";
-            String actualPlayResult = student3.requestMedia(media);
-
-            if (!expectedPlayResult.equals(actualPlayResult)) {
-                System.out.println("FAIL: Expected \"" + expectedPlayResult + "\", but got \"" + actualPlayResult + "\"");
-                failureCount |= 0b100; 
+            expected = "Non-UTA email address: " + badEmail;
+            actual = e.getMessage();
+            if(!actual.equals(expected)) {
+                System.err.println("FAIL: Expected message " + expected + '\n'
+                                     + "  Actual   message " + actual);
+                result |= vector;
             }
         } catch (Exception e) {
-            System.out.println("FAIL: Unexpected exception in requestMedia test.");
-            failureCount |= 0b100; 
+            System.err.println("FAIL: Expected IllegalArgumentException for " + badEmail);
+            System.err.println("      Following exception thrown instead\n" + e);
+            result |= vector;
         }
-
         
-        System.exit(failureCount);
+        // Verify that requesting media from Student returns "Playing " and the media
+        String title = "The Little Shop of Horrors";
+        String url = "https://publicdomainmovie.net/movie/the-little-shop-of-horrors-0";
+        Media media = new Media(title, url);
+        expected = "Playing " + title + " (" + url + ")";
+        actual = s1.requestMedia(media);
+        if(!actual.equals(expected)) {
+            System.err.println("FAIL: Expected media request result \n" + expected + '\n'
+                                 + "  Actual   media request result \n" + actual);
+                result |= vector;
+        }
+        vector <<= 1;
+        
+        if(result != 0) System.err.println("\nFAIL: Error code " + result);
+        System.exit(result);
     }
 }

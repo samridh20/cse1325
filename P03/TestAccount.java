@@ -1,11 +1,20 @@
 public class TestAccount {
-
     public static void main(String[] args) {
+        int result = 0;
+        
+        // Verify that the first account number created is ``1``, and the second account number is ``2``.
+        for(int expected = 1; expected < 3; ++expected) {
+            Account account = new Account();
+            int actual = account.getAccountNumber();
+            if(actual != expected) {
+                System.err.println("FAIL: Expected account number " + expected + '\n'
+                                 + "      Actual   account number " + actual);
+                result = 1;
+            }
+        }
 
-        Account account1 = new Account();
-        Account account2 = new Account();
-
-        assert account1.getAccountNumber() == 1 : "FAIL:First account number should be 1 not " + account1.getAccountNumber();
-        assert account2.getAccountNumber() == 2 : "FAIL:Second account number should be 2 not" + account2.getAccountNumber();
+        if(result != 0) System.err.println("\nFAIL: Error code " + result);
+        System.exit(result);
     }
 }
+
