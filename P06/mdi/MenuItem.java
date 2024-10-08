@@ -1,20 +1,19 @@
 package mdi;
 
-public class MenuItem{
-    private String menuText;
-    private Runnable menuResponse;
+public class MenuItem {
+    private String description;
+    private Runnable action;
 
-    public MenuItem(String menuText, Runnable menuResponse){
-        this.menuText = menuText;
-        this.menuResponse = menuResponse;
+    public MenuItem(String description, Runnable action) {
+        this.description = description;
+        this.action = action;
     }
 
-    @Override
-    public String toString(){
-        return menuText;
+    public String getDescription() {
+        return description;
     }
 
-    public void run(){
-        menuResponse.run();
+    public Runnable getAction() {
+        return action;
     }
 }

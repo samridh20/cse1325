@@ -3,43 +3,34 @@ package mdi;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Menu{
-    private ArrayList<MenuItem> items = new ArrayList<>();
+public class Menu {
 
-    public void addMenuItem(MenuItem item){
-        items.add(item);
+    private ArrayList<MenuItem> menuItems = new ArrayList<>();
+
+    public void addMenuItem(MenuItem item) {
+        menuItems.add(item);
     }
 
-    public void run(int itemNumber){
-        if (itemNumber == 0) {
-            System.out.println("Exiting...");
-            items.get(itemNumber).run();
-        } else if (itemNumber > 0 && itemNumber <= items.size()){
-            items.get(itemNumber).run();
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < menuItems.size(); i++) {
+            sb.append(i + 1).append(") ").append(menuItems.get(i).getDescription()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public void run(int selection) {
+        if (selection > 0 && selection <= menuItems.size()) {
+            menuItems.get(selection - 1).getAction().run();
         } else {
             System.out.println("Invalid selection.");
         }
     }
 
-    @Override
-    public String toString(){
-        
-        StringBuilder sb = new StringBuilder(); 
-        for (int i = 0; i < items.size(); i++){
-            sb.append(i).append(") ").append(items.get(i)).append("\n");  // Number the other menu items
-        }
-        return sb.toString();
-    }
-
-    public static int getInt(String prompt){
-        System.out.print(prompt);
+    public static int getInt(String prompt) {
         Scanner sc = new Scanner(System.in);
+        System.out.print(prompt);
         return sc.nextInt();
-    }
-
-    public static String getString(String prompt){
-        System.out.print(prompt);
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
     }
 }

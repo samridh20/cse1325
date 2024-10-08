@@ -4,7 +4,7 @@ import moes.Moes;
 import java.io.*;
 import java.util.Scanner;
 
-public class Main implements Runnable {
+public class Main implements Runnable{
     private Moes moes;
     private String output = "";
     private Menu menu;
@@ -15,8 +15,8 @@ public class Main implements Runnable {
     private static final String extension = ".moes";
     private String filename = "";
 
-    public Main() {
-        moes = new Moes();
+    public Main(){
+        moes = new Moes();  // No-argument constructor works now
         menu = new Menu();
 
         // Add menu items
@@ -34,15 +34,13 @@ public class Main implements Runnable {
         menu.addMenuItem(new MenuItem("Exit", () -> endApp()));
     }
 
-    // Creates a new MOES instance
-    public void newMoes() {
+    public void newMoes(){
         moes = new Moes();
         filename = "";
         output = "New MOES instance created.";
     }
 
-    // Saves the current MOES instance to the current file
-    public void save() {
+    public void save(){
         if (filename.isEmpty()) {
             output = "No file loaded. Use 'Save as new file' instead.";
             return;
@@ -56,8 +54,6 @@ public class Main implements Runnable {
             output = "Error saving to file: " + e.getMessage();
         }
     }
-
-    // Saves the current MOES instance to a new file specified by the user
     public void saveAs() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter new filename: ");
@@ -66,11 +62,9 @@ public class Main implements Runnable {
             newFilename += extension;
         }
         filename = newFilename;
-        save(); // Call save() to perform the actual saving
+        save();
     }
-
-    // Opens a MOES instance from a file
-    public void open() {
+    public void open(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter filename to open: ");
         String newFilename = sc.nextLine();
@@ -78,7 +72,7 @@ public class Main implements Runnable {
             newFilename += extension;
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(newFilename))) {
+        try (BufferedReader br =new BufferedReader(new FileReader(newFilename))) {
             String magic = br.readLine();
             String version = br.readLine();
             if (!magic.equals(magicCookie) || !version.equals(fileVersion)) {
@@ -93,7 +87,7 @@ public class Main implements Runnable {
     }
 
     // Add student method
-    public void addStudent() {
+    public void addStudent(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Student name? ");
         String name = sc.nextLine();
@@ -104,11 +98,11 @@ public class Main implements Runnable {
         String email = sc.nextLine();
         System.out.print("(a)lacarte or (u)nlimited? ");
         boolean unlimited = sc.nextLine().equalsIgnoreCase("u");
-        moes.addStudent(new customer.Student(name, id, email, unlimited));
+        moes.addStudent(new Student(name, id, email, unlimited));
         output = "Added student " + name;
     }
 
-    public void listStudents() {
+    public void listStudents(){
         output = moes.getStudentList();
     }
 
@@ -120,31 +114,30 @@ public class Main implements Runnable {
         String url = sc.nextLine();
         System.out.print("Points? ");
         int points = sc.nextInt();
-        moes.addMedia(new product.Media(title, url, points));
-        output = "Added media " + title;
+        moes.addMedia(new Media(title,url,points));
+        output ="Added media " + title;
     }
 
-    public void listMedia() {
-        output = moes.getMediaList();
+    public void listMedia(){
+        output =moes.getMediaList();
     }
 
-    public void playMedia() {
+    public void playMedia(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Student number? ");
-        int studentIndex = sc.nextInt();
+        int studentIndex =sc.nextInt();
         System.out.print("Media number? ");
-        int mediaIndex = sc.nextInt();
+        int mediaIndex =sc.nextInt();
         output = moes.playMedia(studentIndex, mediaIndex);
     }
 
-    public void listAvailablePoints() {
+    public void listAvailablePoints(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Student number? ");
         int studentIndex = sc.nextInt();
-        int points = moes.getPoints(studentIndex);
-        output = "Student has " + points + " points.";
+        int points =moes.getPoints(studentIndex);
+        output ="Student has " + points + " points.";
     }
-
     public void buyPoints() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Student number? ");
@@ -152,23 +145,26 @@ public class Main implements Runnable {
         System.out.print("Current points: " + moes.getPoints(studentIndex) + "\nHow many points to buy? ");
         int points = sc.nextInt();
         if (points > 0) {
-            output = moes.buyPoints(studentIndex, points);
+            output =moes.buyPoints(studentIndex, points);
         } else {
             output = "Cannot buy negative or zero points!";
         }
     }
 
-    public void endApp() {
+    public void endApp(){
+
         running = false;
     }
 
     @Override
     public void run() {
+
         while (running) {
             if (!output.isEmpty()) {
                 System.out.println("\n" + output + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 output = "";
             }
+            
             System.out.println(menu);
             int selection = Menu.getInt("Selection? ");
             menu.run(selection);
