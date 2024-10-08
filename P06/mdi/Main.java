@@ -1,6 +1,8 @@
 package mdi;
 
 import moes.Moes;
+import product.Media;    
+import customer.Student;
 import java.io.*;
 import java.util.Scanner;
 
@@ -58,6 +60,10 @@ public class Main implements Runnable{
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter new filename: ");
         String newFilename = sc.nextLine();
+        if (newFilename.isEmpty()) {
+            output = "Command canceled.";
+            return;
+        }
         if (!newFilename.endsWith(extension)) {
             newFilename += extension;
         }
@@ -68,6 +74,10 @@ public class Main implements Runnable{
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter filename to open: ");
         String newFilename = sc.nextLine();
+        if (newFilename.isEmpty()) {
+            output = "Command canceled.";
+            return;
+        }
         if (!newFilename.endsWith(extension)) {
             newFilename += extension;
         }
@@ -91,6 +101,7 @@ public class Main implements Runnable{
         Scanner sc = new Scanner(System.in);
         System.out.print("Student name? ");
         String name = sc.nextLine();
+        
         System.out.print("Student ID? ");
         int id = sc.nextInt();
         sc.nextLine(); // Consume newline
@@ -110,10 +121,19 @@ public class Main implements Runnable{
         Scanner sc = new Scanner(System.in);
         System.out.print("Title? ");
         String title = sc.nextLine();
+        if (title.isEmpty()) {
+            output = "Command canceled.";
+            return;
+        }
         System.out.print("URL? ");
         String url = sc.nextLine();
+        if (url.isEmpty()) {
+            output = "Command canceled.";
+            return;
+        }
         System.out.print("Points? ");
         int points = sc.nextInt();
+        
         moes.addMedia(new Media(title,url,points));
         output ="Added media " + title;
     }
@@ -158,16 +178,30 @@ public class Main implements Runnable{
 
     @Override
     public void run() {
-
+        Scanner sc = new Scanner(System.in);
         while (running) {
             if (!output.isEmpty()) {
                 System.out.println("\n" + output + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 output = "";
             }
-            
             System.out.println(menu);
-            int selection = Menu.getInt("Selection? ");
-            menu.run(selection);
+            System.out.print("Selection? ");
+            String input = sc.nextLine();  // Read the input as a string
+    
+            if (input.isEmpty()) {
+                // Exit the program if Enter is pressed without input
+                System.out.println("Exiting program.");
+                endApp();
+                return;
+            }
+    
+            // Convert the input to an integer if it's not empty
+            try {
+                int selection = Integer.parseInt(input);
+                menu.run(selection);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
         }
     }
 
@@ -175,4 +209,5 @@ public class Main implements Runnable{
         Main app = new Main();
         app.run();
     }
+   
 }
