@@ -11,6 +11,8 @@ public class Main implements Runnable{
     private String output = "";
     private Menu menu;
     private boolean running = true;
+    private boolean dirty = false;
+
 
     private static final String magicCookie = "MOESFILE";
     private static final String fileVersion = "1.0";
@@ -35,10 +37,41 @@ public class Main implements Runnable{
         menu.addMenuItem(new MenuItem("Save as new file", () -> saveAs()));
         menu.addMenuItem(new MenuItem("Exit", () -> endApp()));
     }
+    private void checkDirty() {
+        if (dirty) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("You have unsaved changes. Would you like to:");
+            System.out.println("(s)ave, save (a)s new file, (d)iscard changes, or (c)ancel?");
+            String choice = sc.nextLine().toLowerCase();
+
+            switch (choice) {
+                case "s":
+                    save(); // Save to the current file
+                    break;
+                case "a":
+                    saveAs(); // Save to a new file
+                    break;
+                case "d":
+                    // Discard changes
+                    dirty = false;
+                    output = "Unsaved changes discarded.";
+                    break;
+                case "c":
+                    // Cancel the command
+                    throw new IllegalStateException("Operation canceled by user.");
+                default:
+                    System.out.println("Invalid choice, returning to the main menu.");
+                    break;
+            }
+        }
+    }
 
     public void newMoes(){
+
+        checkDirty();
         moes = new Moes();
         filename = "";
+        dirty = false; 
         output = "New MOES instance created.";
     }
 
@@ -51,12 +84,14 @@ public class Main implements Runnable{
             bw.write(magicCookie + "\n");
             bw.write(fileVersion + "\n");
             moes.save(bw);
+            dirty = false;
             output = "MOES data saved to " + filename;
         } catch (IOException e) {
             output = "Error saving to file: " + e.getMessage();
         }
     }
     public void saveAs() {
+
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter new filename: ");
         String newFilename = sc.nextLine();
@@ -71,6 +106,7 @@ public class Main implements Runnable{
         save();
     }
     public void open(){
+        checkDirty();
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter filename to open: ");
         String newFilename = sc.nextLine();
@@ -90,6 +126,7 @@ public class Main implements Runnable{
             }
             moes = new Moes(br); // Load Moes from file
             filename = newFilename;
+            dirty = false;
             output = "MOES data loaded from " + newFilename;
         } catch (IOException e) {
             output = "Error opening file: " + e.getMessage();
@@ -110,6 +147,7 @@ public class Main implements Runnable{
         System.out.print("(a)lacarte or (u)nlimited? ");
         boolean unlimited = sc.nextLine().equalsIgnoreCase("u");
         moes.addStudent(new Student(name, id, email, unlimited));
+        dirty = true;
         output = "Added student " + name;
     }
 
@@ -135,6 +173,7 @@ public class Main implements Runnable{
         int points = sc.nextInt();
         
         moes.addMedia(new Media(title,url,points));
+        dirty = true; 
         output ="Added media " + title;
     }
 
