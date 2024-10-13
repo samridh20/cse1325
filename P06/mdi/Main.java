@@ -65,7 +65,7 @@ public class Main implements Runnable{
             }
         }
     }
-
+    
     public void newMoes(){
 
         checkDirty();
@@ -75,16 +75,32 @@ public class Main implements Runnable{
         output = "New MOES instance created.";
     }
 
-    public void save(){
+    public void save() {
         if (filename.isEmpty()) {
             output = "No file loaded. Use 'Save as new file' instead.";
             return;
         }
+        
+        File file = new File(filename);
+        // If the file already exists rename it to create a backup with a tilde (~)appended
+        if (file.exists()) {
+            File backupFile = new File(filename + "~");
+            if (backupFile.exists()) {
+                backupFile.delete(); // Deletes the old backup file if it exists
+            }
+            boolean renamed = file.renameTo(backupFile);
+            if (!renamed) {
+                output = "Error creating backup. Save operation aborted.";
+                return;
+            }
+        }
+    
+        // saves the data as usual
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
             bw.write(magicCookie + "\n");
             bw.write(fileVersion + "\n");
             moes.save(bw);
-            dirty = false;
+            dirty = false;  // Data has been saved so no unsaved changes
             output = "MOES data saved to " + filename;
         } catch (IOException e) {
             output = "Error saving to file: " + e.getMessage();

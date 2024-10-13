@@ -1,12 +1,21 @@
 <?xml version="1.0"?>
-<project name="CSE1325" default="build">
-    <target name="build" description="Compile source tree java files">
-        <javac includeantruntime="false" release="21" debug="true" failonerror="true">
-            <src path="."/>
+<project name="CSE1325_P06" default="build">
+
+    <!-- Initialize: Create build directory if not exists -->
+    <target name="init">
+        <mkdir dir="build"/>
+    </target>
+
+    <!-- Compile source tree Java files -->
+    <target name="build" depends="init" description="Compile source tree java files">
+        <javac includeantruntime="false" srcdir="." destdir="build" release="21" debug="true" failonerror="true">
+            <include name="**/*.java"/>
         </javac>
     </target>
+
+    <!-- Generate JavaDocs -->
     <target name="javadoc" description="Generate JavaDoc">
-        <javadoc packagenames="customer.*,product.*"
+        <javadoc packagenames="customer.*,product.*,moes.*,mdi.*"
                  sourcepath="."
                  excludepackagenames="com.dummy.test.doc-files.*"
                  defaultexcludes="yes"
@@ -20,11 +29,43 @@
             <tag name="license.agreement" scope="all" description="Licensed under:"/>
         </javadoc>
     </target>
+
+    <!-- Clean output files -->
     <target name="clean" description="Clean output files">
         <delete>
-            <fileset dir=".">
+            <fileset dir="build">
                 <include name="**/*.class"/>
             </fileset>
         </delete>
+        <delete dir="docs/api"/>
+    </target>
+
+    <!-- Run the main class -->
+    <target name="run" depends="build">
+        <java classname="mdi.Main" fork="true">
+            <classpath>
+                <pathelement path="build"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <!-- Save the current MOES state -->
+    <target name="save" depends="build">
+        <java classname="mdi.Main" fork="true">
+            <arg value="save"/>
+            <classpath>
+                <pathelement path="build"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <!-- Open a MOES file -->
+    <target name="open" depends="build">
+        <java classname="mdi.Main" fork="true">
+            <arg value="open"/>
+            <classpath>
+                <pathelement path="build"/>
+            </classpath>
+        </java>
     </target>
 </project>
