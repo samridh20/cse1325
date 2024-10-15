@@ -13,7 +13,7 @@ NOTE: These are measurements which may vary plus your opinions which may vary a 
 QUESTION 1: What Boggle command line arguments ([#boards] and if not default [boardSize])did you use to achieve a 30 to 45 second runtime? Note: We're only interested in the "real" seconds for this question.
 
 
-
+time java Boggle 
 
 
 
@@ -22,16 +22,158 @@ QUESTION 2: Provide the full output (including the time command) for your progra
 for i in {1..16} ; do echo ; echo $i Threads; time java Boggle 90 - $i ; done
 
 
+1 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m14.969s
+user    0m0.000s
+sys     0m0.000s
+
+2 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.323s
+user    0m0.000s
+sys     0m0.015s
+
+3 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m16.982s
+user    0m0.000s
+sys     0m0.000s
+
+4 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m16.696s
+user    0m0.000s
+sys     0m0.015s
+
+5 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.564s
+user    0m0.000s
+sys     0m0.015s
+
+6 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.969s
+user    0m0.000s
+sys     0m0.000s
+
+7 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.723s
+user    0m0.000s
+sys     0m0.000s
+
+8 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.360s
+user    0m0.000s
+sys     0m0.015s
+
+9 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.265s
+user    0m0.000s
+sys     0m0.000s
+
+10 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.402s
+user    0m0.000s
+sys     0m0.000s
+
+11 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.273s
+user    0m0.000s
+sys     0m0.000s
+
+12 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.265s
+user    0m0.000s
+sys     0m0.000s
+
+13 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.335s
+user    0m0.000s
+sys     0m0.000s
+
+14 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.122s
+user    0m0.000s
+sys     0m0.015s
+
+15 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.239s
+user    0m0.000s
+sys     0m0.015s
+
+16 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.019s
+user    0m0.000s
+sys     0m0.015s
 
 
 QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
 
-
+Increasing the threads reduces the time at first but later the time starts increasing because of thread overhead and limited cores
 
 QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
 
-Yes, from 0.285 seconds to 1.667 seconds for this data set
-
+Yes, adding more threads increased the system load. This is because with more threads operating system needs to perform more context switching.
 
 
 
@@ -43,7 +185,151 @@ BONUS
 
 QUESTION 5: Time your version of Boggle as you did for the full credit version. Is this additional layer of threading faster, slower, or roughly equivalent in performance? Why?
 
+adding another layer of threading is faster than full credit because thread pool reduces idle time for threads making better use of CPU
 
 YOUR Timing:
 
+1 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m15.085s
+user    0m0.000s
+sys     0m0.000s
+
+2 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m9.131s
+user    0m0.000s
+sys     0m0.000s
+
+3 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m7.385s
+user    0m0.015s
+sys     0m0.016s
+
+4 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m6.561s
+user    0m0.000s
+sys     0m0.015s
+
+5 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m6.241s
+user    0m0.000s
+sys     0m0.000s
+
+6 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m5.622s
+user    0m0.000s
+sys     0m0.000s
+
+7 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m5.477s
+user    0m0.000s
+sys     0m0.000s
+
+8 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m5.541s
+user    0m0.000s
+sys     0m0.000s
+
+9 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m5.070s
+user    0m0.000s
+sys     0m0.000s
+
+10 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m4.961s
+user    0m0.000s
+sys     0m0.000s
+
+11 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m4.773s
+user    0m0.000s
+sys     0m0.000s
+
+12 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m5.044s
+user    0m0.000s
+sys     0m0.000s
+
+13 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m4.771s
+user    0m0.000s
+sys     0m0.000s
+
+14 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m5.117s
+user    0m0.000s
+sys     0m0.015s
+
+15 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m5.107s
+user    0m0.000s
+sys     0m0.015s
+
+16 Threads
+
+Found 33074 solutions
+Hash is 0x437B7109
+
+real    0m5.370s
+user    0m0.000s
+sys     0m0.000s
 
