@@ -20,6 +20,7 @@ public:
     Purse& operator+=(const Purse& other);
     Purse& operator-=(const Purse& other);
 
+    int& operator[](const std::string& type);  // extreme bonus 2
 private:
     int _pounds;
     int _shillings;
