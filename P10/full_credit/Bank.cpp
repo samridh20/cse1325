@@ -3,7 +3,7 @@
 #include <map>
 #include "Purse.h"
 
-int main(){
+int main() {
     std::cout << "Welcome to Ye Olde Bank of Merry England" << std::endl;
 
     int accountCount;
@@ -12,8 +12,11 @@ int main(){
 
     std::map<std::string, Purse> vault;
 
-    for (int i = 0; i < accountCount; ++i){
+    for (int i = 0; i < accountCount; ++i) {
         std::cin.ignore(); 
+
+       
+        std::string accountName;                             // Declare variables for account details
         int pounds, shillings, pence;
 
         std::cout << "Name account " << i << ": ";
@@ -25,6 +28,7 @@ int main(){
         vault[accountName] = Purse(pounds, shillings, pence);
         std::cout << "Account " << accountName << " created with " << vault[accountName] << std::endl;
     }
+
     std::cout << "\nAccount List" << std::endl;
     std::cout << "============" << std::endl;
 
@@ -33,6 +37,7 @@ int main(){
         std::cout << "  " << name << " with " << purse << std::endl;
         total += purse;
     }
+
     std::cout << "\nTotal in bank is " << total << std::endl;
     return 0;
 }

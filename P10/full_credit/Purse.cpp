@@ -1,8 +1,7 @@
 #include "Purse.h"
 
 
-Purse::Purse(int pounds, int shillings, int pence)                 // Constructor with initialization list and rationalization
-    : _pounds(pounds), _shillings(shillings), _pence(pence) {
+Purse::Purse(int pounds, int shillings, int pence)                
     rationalize();
 }
 void Purse::rationalize(){
@@ -16,16 +15,16 @@ void Purse::rationalize(){
     }
 }
 
-std::ostream& operator<<(std::ostream& os, const Purse& purse){      // Output stream operator
+std::ostream& operator<<(std::ostream& os, const Purse& purse){      
     os << "£" << purse._pounds << " " << purse._shillings << "s" << purse._pence << "d";
     return os;
 }
-Purse& Purse::operator++() {                                         // Pre-increment operator
+Purse& Purse::operator++() {                                         
     _pence++;
     rationalize();
     return *this;
 }
-Purse Purse::operator++(int) {                                      // Post-increment operator
+Purse Purse::operator++(int) {                                      
     Purse temp = *this;
     ++(*this);
     return temp;
@@ -43,7 +42,7 @@ Purse& Purse::operator+=(const Purse& other) {                     // Compound a
     rationalize();
     return *this;
 }
-Purse& Purse::operator-=(const Purse& other) {                  // Compound subtraction operator
+Purse& Purse::operator-=(const Purse& other) {
     _pounds -= other._pounds;
     _shillings -= other._shillings;
     _pence -= other._pence;
