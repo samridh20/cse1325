@@ -6,9 +6,9 @@
 
 class Date{
 public:
-    Date(int year = 1970, int month = 1, int day = 1) : _year(year), _month(month), _day(day){}
-    auto operator<=>(const Date&) const = default;
 
+    Date(int year = 1970, int month = 1, int day = 1) : _year(year), _month(month), _day(day) {}
+    auto operator<=>(const Date&) const = default;
     friend std::ostream& operator<<(std::ostream& os, const Date& date){
         char old_fill = os.fill();
         os << date._year << '/'
