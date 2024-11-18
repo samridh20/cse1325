@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
         Date end(ey, em, ed);
 
         auto it = temps.lower_bound(start);
-        std::cout << "Date       | Temperature (\xF8F)\n";
+        std::cout << "Date       | Temperature (\u00B0F)\n";
         std::cout << "-----------|-------------------\n";
 
         while (it != temps.end() && it->first <= end){
